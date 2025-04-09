@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("io.freefair.lombok") version "8.4"
 }
 
 android {
@@ -32,6 +33,17 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.mpandroidchart)
+
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.constraintlayout)
+
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)

@@ -6,17 +6,28 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Builder
 @Entity
 public class Notification {
     @PrimaryKey(autoGenerate = true)
     public Long id;
 
     @ColumnInfo(name = "workout_id")
-    public long workoutId;
+    public Long workoutId;
 
     @ColumnInfo(name = "send_date")
     public Date sendDate;
 
-    public boolean status;
+    public Boolean status;
 }
 

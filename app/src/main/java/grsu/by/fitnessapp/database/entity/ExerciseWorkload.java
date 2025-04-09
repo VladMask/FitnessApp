@@ -5,6 +5,17 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Builder
 @Entity(
         tableName = "exercise_workloads",
         foreignKeys = {
@@ -23,14 +34,14 @@ public class ExerciseWorkload {
     public Long id;
 
     @ColumnInfo(name = "exercise_id")
-    public int exerciseId;
+    public Integer exerciseId;
 
     @ColumnInfo(name = "workout_id")
-    public long workoutId;
+    public Long workoutId;
 
-    public int sets;
+    public Integer sets;
     public Integer reps;
     public Double weight;
-    public int duration; // seconds
+    public Integer duration; // seconds
 }
 

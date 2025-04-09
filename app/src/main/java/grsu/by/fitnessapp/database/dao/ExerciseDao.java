@@ -13,6 +13,9 @@ public interface ExerciseDao {
     @Insert
     void insert(Exercise exercise);
 
+    @Query("SELECT * FROM exercises WHERE id = :id")
+    Exercise getById(int id);
+
     @Query("SELECT * FROM exercises")
     List<Exercise> getAll();
 }
