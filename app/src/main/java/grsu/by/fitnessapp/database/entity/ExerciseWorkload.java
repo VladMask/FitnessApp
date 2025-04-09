@@ -5,6 +5,8 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.Entity;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +31,7 @@ import lombok.Setter;
                         onDelete = ForeignKey.CASCADE)
         }
 )
-public class ExerciseWorkload {
+public class ExerciseWorkload implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public Long id;
 

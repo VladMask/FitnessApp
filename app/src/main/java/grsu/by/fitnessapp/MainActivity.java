@@ -1,50 +1,53 @@
 package grsu.by.fitnessapp;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import grsu.by.fitnessapp.fragments.ExercisesFragment;
+import grsu.by.fitnessapp.fragments.ProgressFragment;
+import grsu.by.fitnessapp.fragments.WorkoutsFragment;
+
 public class MainActivity extends AppCompatActivity {
 
-    FrameLayout mainFragment;
+    private void loadFragment(@NonNull Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainFragment = findViewById(R.id.mainFragment);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
 
         bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+
             int id = item.getItemId();
-            mainFragment.removeAllViews();
-
-            LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-            View newView = null;
-
             if (id == R.id.workouts_layout) {
-                newView = inflater.inflate(R.layout.workouts_layout, mainFragment, false);
-            } else if (id == R.id.exercise_progress_layout) {
-                newView = inflater.inflate(R.layout.exercise_progress_layout, mainFragment, false);
-            } else if (id == R.id.conditions_progress_layout) {
-                newView = inflater.inflate(R.layout.conditions_progress_layout, mainFragment, false);
+                selectedFragment = new WorkoutsFragment();
+            } else if (id == R.id.exercises_layout) {
+                selectedFragment = new ExercisesFragment();
+            } else if (id == R.id.progress_layout) {
+                selectedFragment = new ProgressFragment();
             }
 
-            if (newView != null) {
-                mainFragment.addView(newView);
+            if (selectedFragment != null) {
+                loadFragment(selectedFragment);
                 return true;
             }
 
             return false;
         });
 
-        View defaultView = LayoutInflater.from(this).inflate(R.layout.workouts_layout, mainFragment, false);
-        mainFragment.addView(defaultView);
+        loadFragment(new WorkoutsFragment());
     }
 }

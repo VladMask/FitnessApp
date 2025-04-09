@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.constraintlayout)
+    implementation(libs.fragment)
 
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)

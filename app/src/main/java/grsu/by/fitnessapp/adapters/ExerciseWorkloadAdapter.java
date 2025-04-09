@@ -1,4 +1,4 @@
-package grsu.by.fitnessapp.adapter;
+package grsu.by.fitnessapp.adapters;
 
 public class ExerciseWorkloadAdapter {
 

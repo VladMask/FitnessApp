@@ -2,6 +2,10 @@ package grsu.by.fitnessapp.fragments;
 
 import androidx.fragment.app.Fragment;
 
-public class ExerciseProgressFragment extends Fragment {
+import grsu.by.fitnessapp.R;
 
+public class ExerciseProgressFragment extends Fragment {
+    public ExerciseProgressFragment() {
+        super(R.layout.exercise_progress_layout);
+    }
 }

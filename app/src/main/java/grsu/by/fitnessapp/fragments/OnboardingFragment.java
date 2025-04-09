@@ -2,6 +2,10 @@ package grsu.by.fitnessapp.fragments;
 
 import androidx.fragment.app.Fragment;
 
-public class OnboardingFragment extends Fragment {
+import grsu.by.fitnessapp.R;
 
+public class OnboardingFragment extends Fragment {
+    public OnboardingFragment() {
+        super(R.layout.onboarding_layout);
+    }
 }

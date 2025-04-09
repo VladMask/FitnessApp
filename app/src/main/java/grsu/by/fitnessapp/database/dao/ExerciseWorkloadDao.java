@@ -1,6 +1,5 @@
 package grsu.by.fitnessapp.database.dao;
 
-
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -19,5 +18,8 @@ public interface ExerciseWorkloadDao {
 
     @Query("SELECT * FROM exercise_workloads WHERE workout_id = :workoutId")
     List<ExerciseWorkload> getByWorkoutId(long workoutId);
+
+    @Query("DELETE FROM exercise_workloads WHERE workout_id = :workoutId")
+    void deleteByWorkoutId(long workoutId);
 }
 

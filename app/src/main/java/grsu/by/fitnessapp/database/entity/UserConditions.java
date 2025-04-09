@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Builder
 @Entity
-public class UserConditions {
+public class UserConditions implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public Long id;
 
