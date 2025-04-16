@@ -42,6 +42,9 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
     implementation(libs.constraintlayout)
     implementation(libs.fragment)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)

@@ -1,6 +1,7 @@
 package grsu.by.fitnessapp.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.room.Database;
 import androidx.room.Room;
@@ -27,11 +28,13 @@ import grsu.by.fitnessapp.database.entity.Workout;
                 Notification.class,
                 UserConditions.class
         },
-        version = 1
+        version = 2,
+        exportSchema = false
 )
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
+    private static final String TAG = "AppDatabase";
     private static final String DATABASE_NAME = "fitness_app_db";
     private static volatile AppDatabase instance;
 
@@ -43,13 +46,21 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
-            instance = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            AppDatabase.class,
-                            DATABASE_NAME)
-                    .build();
+            try {
+                instance = Room.databaseBuilder(
+                                context.getApplicationContext(),
+                                AppDatabase.class,
+                                DATABASE_NAME)
+//                        .fallbackToDestructiveMigration()
+//                        .allowMainThreadQueries()
+                        .build();
+                
+                Log.d(TAG, "New database created successfully");
+            } catch (Exception e) {
+                Log.e(TAG, "Error creating database", e);
+                throw new RuntimeException("Failed to create database", e);
+            }
         }
         return instance;
     }
-
 }

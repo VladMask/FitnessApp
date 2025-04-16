@@ -33,17 +33,17 @@ import lombok.Setter;
 )
 public class ExerciseWorkload implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public Long id;
+    private Long id;
 
     @ColumnInfo(name = "exercise_id")
-    public Integer exerciseId;
+    private Integer exerciseId;
 
     @ColumnInfo(name = "workout_id")
-    public Long workoutId;
+    private Long workoutId;
 
-    public Integer sets;
-    public Integer reps;
-    public Double weight;
-    public Integer duration; // seconds
+    private Integer sets;
+    private Integer reps;
+    private Double weight;
+    private Integer duration; // seconds
 }
 

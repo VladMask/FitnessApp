@@ -2,7 +2,6 @@ package grsu.by.fitnessapp;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -14,12 +13,10 @@ import grsu.by.fitnessapp.fragments.WorkoutsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private void loadFragment(@NonNull Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-    }
+    private final Fragment workoutsFragment = new WorkoutsFragment();
+    private final Fragment exercisesFragment = new ExercisesFragment();
+    private final Fragment progressFragment = new ProgressFragment();
+    private Fragment activeFragment = workoutsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +25,36 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
 
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, progressFragment, "3").hide(progressFragment)
+                .add(R.id.fragment_container, exercisesFragment, "2").hide(exercisesFragment)
+                .add(R.id.fragment_container, workoutsFragment, "1")
+                .commit();
+
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-
-            int id = item.getItemId();
-            if (id == R.id.workouts_layout) {
-                selectedFragment = new WorkoutsFragment();
-            } else if (id == R.id.exercises_layout) {
-                selectedFragment = new ExercisesFragment();
-            } else if (id == R.id.progress_layout) {
-                selectedFragment = new ProgressFragment();
+            if (item.getItemId() == R.id.nav_workouts) {
+                    switchFragment(workoutsFragment);
+                    return true;
             }
-
-            if (selectedFragment != null) {
-                loadFragment(selectedFragment);
+            if (item.getItemId() == R.id.nav_exercises) {
+                switchFragment(exercisesFragment);
                 return true;
             }
-
+            if (item.getItemId() == R.id.nav_progress) {
+                switchFragment(progressFragment);
+                return true;
+            }
             return false;
         });
+    }
 
-        loadFragment(new WorkoutsFragment());
+    private void switchFragment(Fragment targetFragment) {
+        if (activeFragment != targetFragment) {
+            getSupportFragmentManager().beginTransaction()
+                    .hide(activeFragment)
+                    .show(targetFragment)
+                    .commit();
+            activeFragment = targetFragment;
+        }
     }
 }

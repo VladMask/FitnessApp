@@ -21,14 +21,14 @@ import lombok.Setter;
 @Entity
 public class Notification implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public Long id;
+    private Long id;
 
     @ColumnInfo(name = "workout_id")
-    public Long workoutId;
+    private Long workoutId;
 
     @ColumnInfo(name = "send_date")
-    public Date sendDate;
+    private Date sendDate;
 
-    public Boolean status;
+    private Boolean status;
 }
 

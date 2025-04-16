@@ -21,14 +21,14 @@ import lombok.Setter;
 @Entity
 public class UserConditions implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public Long id;
+    private Long id;
 
-    public Byte age;
-    public Short weight;
-    public Short height;
-    public Boolean gender;
+    private Byte age;
+    private Short weight;
+    private Short height;
+    private Boolean gender;
 
     @ColumnInfo(name = "checkup_Date")
-    public Date checkupDate;
+    private Date checkupDate;
 }
 

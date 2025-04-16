@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/workouts_layout"
+        android:id="@+id/nav_workouts"
         android:icon="@android:drawable/ic_menu_agenda"
         android:title="Workouts" />
 
     <item
-        android:id="@+id/exercises_layout"
+        android:id="@+id/nav_exercises"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="Exercises" />
 
     <item
-        android:id="@+id/progress_layout"
+        android:id="@+id/nav_progress"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="Progress" />
 </menu>

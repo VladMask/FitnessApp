@@ -19,10 +19,10 @@ import lombok.Setter;
 @Entity(tableName = "exercises")
 public class Exercise implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public Integer id;
+    private Integer id;
 
-    public String name;
-    public String category;
+    private String name;
+    private String category;
 }
 
 

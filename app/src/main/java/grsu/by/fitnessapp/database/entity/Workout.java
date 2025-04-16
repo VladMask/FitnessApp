@@ -21,18 +21,18 @@ import lombok.Setter;
 @Entity(tableName = "workouts")
 public class Workout implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public Integer id;
+    private Integer id;
 
-    public String name;
+    private String name;
 
-    public String category;
+    private String category;
 
     @ColumnInfo(name = "start_date")
-    public Date startDate;
+    private Date startDate;
 
     @ColumnInfo(name = "end_date")
-    public Date endDate;
+    private Date endDate;
 
-    public Integer duration;
+    private Integer duration;
 }
 
