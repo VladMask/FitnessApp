@@ -1,9 +1,12 @@
 package grsu.by.fitnessapp.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.adapters.ExerciseAdapter;
@@ -51,12 +55,43 @@ public class ExercisesFragment extends Fragment {
         });
 
         FloatingActionButton addButton = getView().findViewById(R.id.addButton);
-        addButton.setOnClickListener(v -> {
-            // Пример добавления упражнения
-            Exercise exercise = new Exercise();
-            exercise.setName("Push Ups");
-            exercise.setCategory("Strength");
-            mViewModel.addExercise(exercise);
-        });
+        addButton.setOnClickListener(v -> showAddExerciseDialog());
+    }
+
+    private void showAddExerciseDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_exercise, null);
+        builder.setView(dialogView);
+
+        TextInputEditText nameInput = dialogView.findViewById(R.id.exerciseNameInput);
+        AutoCompleteTextView categoryDropdown = dialogView.findViewById(R.id.categoryDropdown);
+
+        // Настройка выпадающего списка категорий
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
+                getContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                mViewModel.getAvailableCategories()
+        );
+        categoryDropdown.setAdapter(categoryAdapter);
+
+        builder.setTitle("Add New Exercise")
+                .setPositiveButton("Add", (dialog, which) -> {
+                    String name = nameInput.getText().toString().trim();
+                    String category = categoryDropdown.getText().toString().trim();
+
+                    if (!name.isEmpty() && !category.isEmpty()) {
+                        Exercise exercise = new Exercise();
+                        exercise.setName(name);
+                        exercise.setCategory(category);
+                        mViewModel.addExercise(exercise);
+                        Toast.makeText(getContext(), "Exercise added", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

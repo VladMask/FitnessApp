@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -17,6 +18,13 @@ public class ExercisesViewModel extends AndroidViewModel {
 
     private static final String TAG = "ExercisesViewModel";
     private final ExerciseDao exerciseDao;
+    private final List<String> availableCategories = Arrays.asList(
+            "Strength",
+            "Cardio",
+            "Flexibility",
+            "Balance",
+            "Endurance"
+    );
 
     public ExercisesViewModel(Application application) {
         super(application);
@@ -47,5 +55,9 @@ public class ExercisesViewModel extends AndroidViewModel {
     // Метод для получения всех упражнений (для отображения в RecyclerView)
     public LiveData<List<Exercise>> getAllExercises() {
         return exerciseDao.getAll();
+    }
+
+    public List<String> getAvailableCategories() {
+        return availableCategories;
     }
 }
