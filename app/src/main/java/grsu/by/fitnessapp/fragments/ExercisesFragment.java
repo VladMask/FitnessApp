@@ -43,15 +43,13 @@ public class ExercisesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        // Подписка на изменения в списке упражнений
         mViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises -> {
             adapter.setExercises(exercises);
         });
 
-        // Установка обработчика удаления
         adapter.setOnDeleteClickListener(exercise -> {
             mViewModel.deleteExercise(exercise);
-            Toast.makeText(getContext(), "Exercise deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.exercise_deleted, Toast.LENGTH_SHORT).show();
         });
 
         FloatingActionButton addButton = getView().findViewById(R.id.addButton);
@@ -66,7 +64,6 @@ public class ExercisesFragment extends Fragment {
         TextInputEditText nameInput = dialogView.findViewById(R.id.exerciseNameInput);
         AutoCompleteTextView categoryDropdown = dialogView.findViewById(R.id.categoryDropdown);
 
-        // Настройка выпадающего списка категорий
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
                 getContext(),
                 android.R.layout.simple_dropdown_item_1line,
@@ -74,8 +71,8 @@ public class ExercisesFragment extends Fragment {
         );
         categoryDropdown.setAdapter(categoryAdapter);
 
-        builder.setTitle("Add New Exercise")
-                .setPositiveButton("Add", (dialog, which) -> {
+        builder.setTitle(R.string.add_new_exercise)
+                .setPositiveButton(R.string.add, (dialog, which) -> {
                     String name = nameInput.getText().toString().trim();
                     String category = categoryDropdown.getText().toString().trim();
 
@@ -84,12 +81,12 @@ public class ExercisesFragment extends Fragment {
                         exercise.setName(name);
                         exercise.setCategory(category);
                         mViewModel.addExercise(exercise);
-                        Toast.makeText(getContext(), "Exercise added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.exercise_added, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("Cancel", null);
+                .setNegativeButton(R.string.cancel, null);
 
         AlertDialog dialog = builder.create();
         dialog.show();

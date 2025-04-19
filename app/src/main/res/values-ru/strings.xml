@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Фитнес приложение</string>
+    <string name="exercises_title">Упражнения</string>
+    <string name="add_exercise">Добавить упражнение</string>
+    <string name="delete_exercise">Удалить упражнение</string>
+    <string name="exercise_added">Упражнение добавлено</string>
+    <string name="exercise_deleted">Упражнение удалено</string>
+    <string name="fill_all_fields">Пожалуйста, заполните все поля</string>
+    <string name="category_strength">Силовые</string>
+    <string name="category_cardio">Кардио</string>
+    <string name="category_flexibility">Гибкость</string>
+    <string name="category_balance">Баланс</string>
+    <string name="category_endurance">Выносливость</string>
+    <string name="add_new_exercise">Добавить новое упражнение</string>
+    <string name="exercise_name">Название упражнения</string>
+    <string name="category">Категория</string>
+    <string name="add">Добавить</string>
+    <string name="cancel">Отмена</string>
+    <string name="workouts">Тренировки</string>
+    <string name="exercises">Упражнения</string>
+    <string name="progress">Прогресс</string>
+    <string name="new_workout">Новая тренировка</string>
+    <string name="workout_name">Название тренировки</string>
+    <string name="select_exercise">Выберите упражнение</string>
+    <string name="number_of_sets">Количество подходов</string>
+    <string name="repetitions_per_set">Количество повторений</string>
+    <string name="weight_kg">Вес (кг)</string>
+    <string name="save">Сохранить</string>
+    <string name="time_per_set_minutes">Длительность подхода (мин)</string>
+    <string name="exercise">Упражнения</string>
+    <string name="exercise_type">Тип упражнения</string>
+    <string name="exercise_progress">Прогресс в упражнении</string>
+    <string name="welcome_to_fitnessapp">Добро пожаловать в FitWorld</string>
+    <string name="age">Возраст</string>
+    <string name="height_cm">Рост (см)</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="your_progress">Ваш прогресс</string>
+    <string name="current_weight">Текущий вес:</string>
+    <string name="current_height">Текущий рост:</string>
+    <string name="current_bmi">Текуший ИМТ:</string>
+    <string name="weight">Вес</string>
+    <string name="bmi">ИМТ</string>
+    <string name="sets">Подходы:</string>
+    <string name="reps">Повторения:</string>
+    <string name="duration">Продолжительность:</string>
+    <string name="distance">Дистанция:</string>
+</resources> 

@@ -1,7 +1,6 @@
 package grsu.by.fitnessapp.database;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.room.Database;
 import androidx.room.Room;
@@ -46,20 +45,13 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
-            try {
-                instance = Room.databaseBuilder(
-                                context.getApplicationContext(),
-                                AppDatabase.class,
-                                DATABASE_NAME)
+            instance = Room.databaseBuilder(
+                            context.getApplicationContext(),
+                            AppDatabase.class,
+                            DATABASE_NAME)
 //                        .fallbackToDestructiveMigration()
 //                        .allowMainThreadQueries()
-                        .build();
-                
-                Log.d(TAG, "New database created successfully");
-            } catch (Exception e) {
-                Log.e(TAG, "Error creating database", e);
-                throw new RuntimeException("Failed to create database", e);
-            }
+                    .build();
         }
         return instance;
     }

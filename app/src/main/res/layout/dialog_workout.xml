@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Workout"
+            android:text="@string/new_workout"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Workout Name"
+            android:hint="@string/workout_name"
             app:boxCornerRadiusTopStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Category"
+            android:hint="@string/category"
             app:boxCornerRadiusTopStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -65,7 +65,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Exercises"
+            android:text="@string/exercises"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Select Exercise"
+            android:hint="@string/select_exercise"
             app:boxCornerRadiusTopStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Number of Sets"
+                android:hint="@string/number_of_sets"
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Repetitions per Set"
+                android:hint="@string/repetitions_per_set"
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Weight (kg)"
+                android:hint="@string/weight_kg"
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -177,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Number of Sets"
+                android:hint="@string/number_of_sets"
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -198,7 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Time per Set (minutes)"
+                android:hint="@string/time_per_set_minutes"
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -221,7 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Add Exercise"
+            android:text="@string/add_exercise"
             app:cornerRadius="8dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -244,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 app:cornerRadius="8dp"/>
 
             <com.google.android.material.button.MaterialButton
@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Save"
+                android:text="@string/save"
                 app:cornerRadius="8dp"/>
 
         </LinearLayout>

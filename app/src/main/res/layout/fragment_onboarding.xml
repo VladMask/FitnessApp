@@ -9,7 +9,7 @@
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to FitnessApp"
+        android:text="@string/welcome_to_fitnessapp"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Age"
+        android:hint="@string/age"
         app:layout_constraintTop_toBottomOf="@id/welcomeText">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Weight (kg)"
+        android:hint="@string/weight_kg"
         app:layout_constraintTop_toBottomOf="@id/ageInput">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Height (cm)"
+        android:hint="@string/height_cm"
         app:layout_constraintTop_toBottomOf="@id/weightInput">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -71,14 +71,14 @@
             android:id="@+id/maleOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"
+            android:text="@string/male"
             android:layout_weight="1"/>
 
         <RadioButton
             android:id="@+id/femaleOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female"
+            android:text="@string/female"
             android:layout_weight="1"/>
     </RadioGroup>
 
@@ -86,7 +86,7 @@
         android:id="@+id/startButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Your Journey"
+        android:text="@string/start_your_journey"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

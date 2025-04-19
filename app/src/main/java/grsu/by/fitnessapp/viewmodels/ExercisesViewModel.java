@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.AppDatabase;
 import grsu.by.fitnessapp.database.dao.ExerciseDao;
 import grsu.by.fitnessapp.database.entity.Exercise;
@@ -18,18 +19,21 @@ public class ExercisesViewModel extends AndroidViewModel {
 
     private static final String TAG = "ExercisesViewModel";
     private final ExerciseDao exerciseDao;
-    private final List<String> availableCategories = Arrays.asList(
-            "Strength",
-            "Cardio",
-            "Flexibility",
-            "Balance",
-            "Endurance"
-    );
+    private final List<String> availableCategories;
 
     public ExercisesViewModel(Application application) {
         super(application);
         AppDatabase db = AppDatabase.getInstance(application);
         exerciseDao = db.exerciseDao();
+        
+        // Категории упражнений
+        availableCategories = Arrays.asList(
+                application.getString(R.string.category_strength),
+                application.getString(R.string.category_cardio),
+                application.getString(R.string.category_flexibility),
+                application.getString(R.string.category_balance),
+                application.getString(R.string.category_endurance)
+        );
     }
 
     public void addExercise(Exercise exercise) {
@@ -52,7 +56,6 @@ public class ExercisesViewModel extends AndroidViewModel {
         });
     }
 
-    // Метод для получения всех упражнений (для отображения в RecyclerView)
     public LiveData<List<Exercise>> getAllExercises() {
         return exerciseDao.getAll();
     }

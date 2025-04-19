@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Exercise Name">
+        android:hint="@string/exercise_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/exerciseNameInput"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Category"
+        android:hint="@string/category"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
         <AutoCompleteTextView

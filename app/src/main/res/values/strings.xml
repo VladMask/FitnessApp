@@ -1,3 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Fit World</string>
+
+    <string name="app_name">Fitness App</string>
+    <string name="exercises_title">Exercises</string>
+    <string name="add_exercise">Add exercise</string>
+    <string name="delete_exercise">Delete exercise</string>
+    <string name="exercise_added">Exercise added</string>
+    <string name="exercise_deleted">Exercise deleted</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="category_strength">Strength</string>
+    <string name="category_cardio">Cardio</string>
+    <string name="category_flexibility">Flexibility</string>
+    <string name="category_balance">Balance</string>
+    <string name="category_endurance">Endurance</string>
+    <string name="add_new_exercise">Add New Exercise</string>
+    <string name="exercise_name">Exercise Name</string>
+    <string name="category">Category</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="workouts">Workouts</string>
+    <string name="exercises">Exercises</string>
+    <string name="progress">Progress</string>
+    <string name="new_workout">New Workout</string>
+    <string name="workout_name">Workout Name</string>
+    <string name="select_exercise">Select Exercise</string>
+    <string name="number_of_sets">Number of Sets</string>
+    <string name="repetitions_per_set">Repetitions per Set</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="save">Save</string>
+    <string name="time_per_set_minutes">Time per Set (minutes)</string>
+    <string name="exercise">Exercise</string>
+    <string name="exercise_type">Exercise Type</string>
+    <string name="exercise_progress">Exercise Progress</string>
+    <string name="welcome_to_fitnessapp">Welcome to FitWorld</string>
+    <string name="age">Age</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="your_progress">Your Progress</string>
+    <string name="current_weight">Current Weight:</string>
+    <string name="current_height">Current Height:</string>
+    <string name="current_bmi">Current BMI:</string>
+    <string name="weight">Weight</string>
+    <string name="bmi">BMI</string>
+    <string name="sets">Sets:</string>
+    <string name="reps">Reps:</string>
+    <string name="duration">Duration:</string>
+    <string name="distance">Distance:</string>
+    <string name="start_your_journey">Start Your Journey</string>
 </resources>

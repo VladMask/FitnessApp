@@ -41,7 +41,7 @@
             android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_delete"
-            android:contentDescription="Delete exercise" />
+            android:contentDescription="@string/delete_exercise" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView> 

@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Exercise"
+            android:text="@string/exercise"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Exercise Name"
+            android:hint="@string/exercise_name"
             app:boxCornerRadiusTopStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Exercise Type"
+            android:hint="@string/exercise_type"
             app:boxCornerRadiusTopStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 app:cornerRadius="8dp"/>
 
             <com.google.android.material.button.MaterialButton
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Save"
+                android:text="@string/save"
                 app:cornerRadius="8dp"/>
 
         </LinearLayout>
