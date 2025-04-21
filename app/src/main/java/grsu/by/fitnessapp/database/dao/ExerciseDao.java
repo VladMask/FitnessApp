@@ -42,6 +42,6 @@ public interface ExerciseDao {
     LiveData<List<Exercise>> getExercisesByWorkoutId(long workoutId);
 
     @Query(" select * from exercises where category = :selectedCategory order by name asc")
-    List<Exercise> getExercisesByCategory(String selectedCategory);
+    LiveData<List<Exercise>> getExercisesByCategory(String selectedCategory);
 }
 

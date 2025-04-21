@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, progressFragment, "3").hide(progressFragment)
-                .add(R.id.fragment_container, exercisesFragment, "2").hide(exercisesFragment)
-                .add(R.id.fragment_container, workoutsFragment, "1")
+                .add(R.id.fragment_container, progressFragment, "progressFragment").hide(progressFragment)
+                .add(R.id.fragment_container, exercisesFragment, "exercisesFragment").hide(exercisesFragment)
+                .add(R.id.fragment_container, workoutsFragment, "workoutsFragment")
                 .commit();
 
         bottomNav.setOnItemSelectedListener(item -> {

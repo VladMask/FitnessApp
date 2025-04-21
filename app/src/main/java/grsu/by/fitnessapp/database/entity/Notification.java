@@ -20,6 +20,7 @@ import lombok.Setter;
 @Builder
 @Entity
 public class Notification implements Serializable {
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
@@ -29,6 +30,7 @@ public class Notification implements Serializable {
     @ColumnInfo(name = "send_date")
     private Date sendDate;
 
+    @ColumnInfo(name = "status")
     private Boolean status;
 }
 

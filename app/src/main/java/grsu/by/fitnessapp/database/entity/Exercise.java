@@ -1,5 +1,6 @@
 package grsu.by.fitnessapp.database.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -18,11 +19,18 @@ import lombok.Setter;
 @Builder
 @Entity(tableName = "exercises")
 public class Exercise implements Serializable {
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
-
+    private Long id;
+    @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "category")
     private String category;
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }
 
 

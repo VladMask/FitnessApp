@@ -20,12 +20,20 @@ import lombok.Setter;
 @Builder
 @Entity
 public class UserConditions implements Serializable {
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
+    @ColumnInfo(name = "age")
     private Byte age;
+
+    @ColumnInfo(name = "weight")
     private Short weight;
+
+    @ColumnInfo(name = "height")
     private Short height;
+
+    @ColumnInfo(name = "gender")
     private Boolean gender;
 
     @ColumnInfo(name = "checkup_Date")

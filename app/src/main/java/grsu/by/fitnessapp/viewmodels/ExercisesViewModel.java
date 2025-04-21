@@ -8,25 +8,31 @@ import androidx.lifecycle.LiveData;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.AppDatabase;
 import grsu.by.fitnessapp.database.dao.ExerciseDao;
 import grsu.by.fitnessapp.database.entity.Exercise;
+import lombok.Getter;
 
 public class ExercisesViewModel extends AndroidViewModel {
 
     private static final String TAG = "ExercisesViewModel";
     private final ExerciseDao exerciseDao;
+
+    @Getter
     private final List<String> availableCategories;
+
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public ExercisesViewModel(Application application) {
         super(application);
         AppDatabase db = AppDatabase.getInstance(application);
         exerciseDao = db.exerciseDao();
-        
-        // Категории упражнений
+
+
         availableCategories = Arrays.asList(
                 application.getString(R.string.category_strength),
                 application.getString(R.string.category_cardio),
@@ -37,7 +43,7 @@ public class ExercisesViewModel extends AndroidViewModel {
     }
 
     public void addExercise(Exercise exercise) {
-        Executors.newSingleThreadExecutor().execute(() -> {
+        executor.execute(() -> {
             try {
                 exerciseDao.insert(exercise);
             } catch (Exception e) {
@@ -47,7 +53,7 @@ public class ExercisesViewModel extends AndroidViewModel {
     }
 
     public void deleteExercise(Exercise exercise) {
-        Executors.newSingleThreadExecutor().execute(() -> {
+        executor.execute(() -> {
             try {
                 exerciseDao.delete(exercise);
             } catch (Exception e) {
@@ -58,9 +64,5 @@ public class ExercisesViewModel extends AndroidViewModel {
 
     public LiveData<List<Exercise>> getAllExercises() {
         return exerciseDao.getAll();
-    }
-
-    public List<String> getAvailableCategories() {
-        return availableCategories;
     }
 }
