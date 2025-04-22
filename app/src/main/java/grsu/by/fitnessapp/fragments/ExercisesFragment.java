@@ -53,42 +53,9 @@ public class ExercisesFragment extends Fragment {
         });
 
         FloatingActionButton addButton = getView().findViewById(R.id.addButton);
-        addButton.setOnClickListener(v -> showAddExerciseDialog());
-    }
-
-    private void showAddExerciseDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_exercise, null);
-        builder.setView(dialogView);
-
-        TextInputEditText nameInput = dialogView.findViewById(R.id.exerciseNameInput);
-        AutoCompleteTextView categoryDropdown = dialogView.findViewById(R.id.categoryDropdown);
-
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
-                getContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                mViewModel.getAvailableCategories()
+        addButton.setOnClickListener(v ->
+                new AddExerciseDialogFragment().show(getParentFragmentManager(), "AddExerciseDialog")
         );
-        categoryDropdown.setAdapter(categoryAdapter);
-
-        builder.setTitle(R.string.add_new_exercise)
-                .setPositiveButton(R.string.add, (dialog, which) -> {
-                    String name = nameInput.getText().toString().trim();
-                    String category = categoryDropdown.getText().toString().trim();
-
-                    if (!name.isEmpty() && !category.isEmpty()) {
-                        Exercise exercise = new Exercise();
-                        exercise.setName(name);
-                        exercise.setCategory(category);
-                        mViewModel.addExercise(exercise);
-                        Toast.makeText(getContext(), R.string.exercise_added, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
+
 }

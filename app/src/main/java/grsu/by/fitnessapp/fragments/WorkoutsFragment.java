@@ -1,13 +1,9 @@
 package grsu.by.fitnessapp.fragments;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,13 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.ArrayList;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.adapters.WorkoutAdapter;
-import grsu.by.fitnessapp.database.entity.Exercise;
 import grsu.by.fitnessapp.database.entity.Workout;
 import grsu.by.fitnessapp.viewmodels.WorkoutsViewModel;
 
@@ -58,98 +50,17 @@ public class WorkoutsFragment extends Fragment implements WorkoutAdapter.OnWorko
 
     private void setupAddButton(View view) {
         FloatingActionButton addButton = view.findViewById(R.id.addButton);
-        addButton.setOnClickListener(v -> showWorkoutDialog(null));
-    }
-
-    private void showWorkoutDialog(Workout workout) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_workout, null);
-        builder.setView(dialogView);
-
-        TextInputEditText nameInput = dialogView.findViewById(R.id.workoutNameInput);
-        AutoCompleteTextView categoryDropdown = dialogView.findViewById(R.id.workoutCategoryInput);
-        AutoCompleteTextView exerciseDropdown = dialogView.findViewById(R.id.exerciseSelect);
-
-        // Setup category dropdown
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            viewModel.getAvailableCategories()
+        addButton.setOnClickListener(v ->
+                AddWorkoutDialogFragment.newInstance(null)
+                        .show(getParentFragmentManager(), "AddWorkoutDialog")
         );
-        categoryDropdown.setAdapter(categoryAdapter);
-
-        // Setup exercise dropdown
-        ArrayAdapter<Exercise> exerciseAdapter = new ArrayAdapter<>(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line
-        );
-        exerciseDropdown.setAdapter(exerciseAdapter);
-
-        // Handle category selection
-        categoryDropdown.setOnItemClickListener((parent, view1, position, id) -> {
-            String category = (String) parent.getItemAtPosition(position);
-            viewModel.getExercisesByCategory(category).observe(getViewLifecycleOwner(), exercises -> {
-                exerciseAdapter.clear();
-                exerciseAdapter.addAll(exercises);
-                exerciseAdapter.notifyDataSetChanged();
-                exerciseDropdown.setText("");
-                exerciseDropdown.showDropDown();
-                setWorkloadVisible(dialogView, category);
-            });
-        });
-
-        // Handle exercise selection
-        exerciseDropdown.setOnItemClickListener((parent, view1, position, id) -> {
-            Exercise selectedExercise = (Exercise) parent.getItemAtPosition(position);
-        });
-
-        if (workout != null) {
-            nameInput.setText(workout.getName());
-            categoryDropdown.setText(workout.getCategory());
-        }
-
-        builder.setPositiveButton(R.string.save, (dialog, which) -> {
-            String name = nameInput.getText().toString().trim();
-            String category = categoryDropdown.getText().toString().trim();
-
-            if (!name.isEmpty() && !category.isEmpty()) {
-                Workout newWorkout = workout != null ? workout : new Workout();
-                newWorkout.setName(name);
-                newWorkout.setCategory(category);
-
-                if (workout != null) {
-                    viewModel.updateWorkout(newWorkout, new ArrayList<>());
-                } else {
-                    viewModel.addWorkout(newWorkout, new ArrayList<>());
-                }
-                Toast.makeText(requireContext(), R.string.workout_added, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(requireContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        builder.setNegativeButton(R.string.cancel, null);
-        builder.create().show();
     }
 
     @Override
     public void onWorkoutClick(Workout workout) {
-        showWorkoutDialog(workout);
+        AddWorkoutDialogFragment.newInstance(workout)
+                .show(getParentFragmentManager(), "EditWorkoutDialog");
     }
 
-    private void setWorkloadVisible(View dialogView, String selectedCategory) {
-        View strengthLayout = dialogView.findViewById(R.id.strengthExerciseLayout);
-        View cardioLayout = dialogView.findViewById(R.id.cardioExerciseLayout);
-
-        strengthLayout.setVisibility(View.GONE);
-        cardioLayout.setVisibility(View.GONE);
-
-        if (selectedCategory.equals(getString(R.string.category_strength))) {
-            strengthLayout.setVisibility(View.VISIBLE);
-        }
-        else {
-            cardioLayout.setVisibility(View.VISIBLE);
-        }
-    }
 
 }
