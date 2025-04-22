@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.entity.Workout;
@@ -47,6 +49,11 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         Workout workout = workouts.get(position);
         holder.nameTextView.setText(workout.getName());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        String formattedDate = sdf.format(workout.getStartDate());
+
+        holder.dateTextView.setText(formattedDate);
         holder.categoryTextView.setText(workout.getCategory());
 
         holder.itemView.setOnClickListener(v -> {
@@ -74,13 +81,15 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
 
     static class WorkoutViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
+        TextView dateTextView;
         TextView categoryTextView;
         ImageButton deleteButton;
 
         public WorkoutViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.workoutNameInput);
-            categoryTextView = itemView.findViewById(R.id.workoutCategoryInput);
+            nameTextView = itemView.findViewById(R.id.workoutName);
+            dateTextView = itemView.findViewById(R.id.workoutDate);
+            categoryTextView = itemView.findViewById(R.id.workoutCategory);
             deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }

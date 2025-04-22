@@ -43,5 +43,9 @@ public interface ExerciseDao {
 
     @Query(" select * from exercises where category = :selectedCategory order by name asc")
     LiveData<List<Exercise>> getExercisesByCategory(String selectedCategory);
+
+    @Query("select * from exercises where name = :name limit 1")
+    Exercise getExerciseByName(String name);
+
 }
 

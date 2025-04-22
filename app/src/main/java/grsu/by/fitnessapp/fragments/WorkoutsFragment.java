@@ -35,6 +35,17 @@ public class WorkoutsFragment extends Fragment implements WorkoutAdapter.OnWorko
         viewModel = new ViewModelProvider(requireActivity()).get(WorkoutsViewModel.class);
         setupRecyclerView(view);
         setupAddButton(view);
+
+        adapter.setOnDeleteClickListener(workout -> {
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.delete_workout)
+                    .setMessage(R.string.are_you_sure)
+                    .setPositiveButton(R.string.delete, (dialog, which) -> {
+                        viewModel.deleteWorkout(workout);
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+        });
     }
 
     private void setupRecyclerView(View view) {

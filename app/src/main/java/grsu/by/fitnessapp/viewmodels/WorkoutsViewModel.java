@@ -55,8 +55,7 @@ public class WorkoutsViewModel extends AndroidViewModel {
     public void addWorkout(Workout workout, List<ExerciseWorkload> workloads) {
         executor.execute(() -> {
             try {
-                long workoutId = workout.getId();
-                workoutDao.insert(workout);
+                long workoutId = workoutDao.insert(workout);
                 for (ExerciseWorkload workload : workloads) {
                     workload.setWorkoutId(workoutId);
                     exerciseWorkloadDao.insert(workload);
@@ -125,5 +124,14 @@ public class WorkoutsViewModel extends AndroidViewModel {
 
     public LiveData<List<ExerciseWorkload>> getWorkoutLoads(long workoutId) {
         return exerciseWorkloadDao.getWorkloadsByWorkoutId(workoutId);
+    }
+
+    public Exercise getExerciseByNameSync(String name) {
+        try {
+            return exerciseDao.getExerciseByName(name);
+        } catch (Exception e) {
+            Log.e(TAG, "Error fetching exercise by name", e);
+            return null;
+        }
     }
 }

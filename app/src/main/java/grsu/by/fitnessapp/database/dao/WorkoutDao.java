@@ -15,7 +15,7 @@ import grsu.by.fitnessapp.database.entity.Workout;
 @Dao
 public interface WorkoutDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Workout workout);
+    long insert(Workout workout);
 
     @Update
     void update(Workout workout);

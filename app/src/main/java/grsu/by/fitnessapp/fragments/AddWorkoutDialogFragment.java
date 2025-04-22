@@ -2,6 +2,7 @@ package grsu.by.fitnessapp.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,11 +19,19 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.datepicker.MaterialDatePicker;
 
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.entity.Exercise;
+import grsu.by.fitnessapp.database.entity.ExerciseWorkload;
 import grsu.by.fitnessapp.database.entity.Workout;
 import grsu.by.fitnessapp.viewmodels.WorkoutsViewModel;
 
@@ -34,6 +43,7 @@ public class AddWorkoutDialogFragment extends DialogFragment {
     private LinearLayout exercisesContainer;
     private LayoutInflater inflater;
     private LiveData<List<Exercise>> filteredExercises;
+    private Date selectedDate;
 
     public static AddWorkoutDialogFragment newInstance(@Nullable Workout workout) {
         AddWorkoutDialogFragment fragment = new AddWorkoutDialogFragment();
@@ -73,22 +83,33 @@ public class AddWorkoutDialogFragment extends DialogFragment {
         MaterialButton addExerciseButton = view.findViewById(R.id.btnAddExercise);
         addExerciseButton.setOnClickListener(this::addExerciseClickListener);
 
+        TextInputEditText dateInput = view.findViewById(R.id.workoutDateInput);
+
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Выберите дату тренировки")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build();
+
+        dateInput.setOnClickListener(v -> {
+            datePicker.show(getParentFragmentManager(), "MATERIAL_DATE_PICKER");
+        });
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+            String formattedDate = sdf.format(new Date(selection));
+            dateInput.setText(formattedDate);
+
+            selectedDate = new Date(selection);
+        });
+
+
         return new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.add_new_workout)
                 .setView(view)
                 .setPositiveButton(R.string.save, (dialog, which) -> {
-                    String name = nameInput.getText().toString().trim();
+                    String name = Objects.requireNonNull(nameInput.getText()).toString().trim();
                     String category = categoryDropdown.getText().toString().trim();
 
-                    if (!name.isEmpty() && !category.isEmpty()) {
-                        Workout newWorkout = new Workout();
-                        newWorkout.setName(name);
-                        newWorkout.setCategory(category);
-
-                        Toast.makeText(requireContext(), R.string.workout_added, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(requireContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
-                    }
+                    saveWorkout(name, category);
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .create();
@@ -127,5 +148,71 @@ public class AddWorkoutDialogFragment extends DialogFragment {
             });
         }
     }
+
+    private int parseIntSafe(Editable editable) {
+        try {
+            return Integer.parseInt(editable != null ? editable.toString().trim() : "0");
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private float parseFloatSafe(Editable editable) {
+        try {
+            return Float.parseFloat(editable != null ? editable.toString().trim() : "0");
+        } catch (NumberFormatException e) {
+            return 0f;
+        }
+    }
+
+
+    private void saveWorkout(String name, String category) {
+        if (!name.isEmpty() && !category.isEmpty()) {
+            Workout newWorkout = new Workout();
+            newWorkout.setName(name);
+            newWorkout.setCategory(category);
+            newWorkout.setStartDate(selectedDate);
+            List<ExerciseWorkload> workloads = new ArrayList<>();
+
+            for (int i = 0; i < exercisesContainer.getChildCount(); i++) {
+                View exerciseView = exercisesContainer.getChildAt(i);
+
+                AutoCompleteTextView exerciseSelect = exerciseView.findViewById(R.id.exerciseSelect);
+                String exerciseName = exerciseSelect.getText().toString().trim();
+
+                if (exerciseName.isEmpty()) continue;
+
+                Exercise exercise = viewModel.getExerciseByNameSync(exerciseName);
+                if (exercise == null) continue;
+
+                ExerciseWorkload workload = new ExerciseWorkload();
+                workload.setExerciseId(exercise.getId());
+
+                if (category.equals(getString(R.string.category_strength))) {
+                    TextInputEditText setsInput = exerciseView.findViewById(R.id.exerciseSets);
+                    TextInputEditText repsInput = exerciseView.findViewById(R.id.exerciseReps);
+                    TextInputEditText weightInput = exerciseView.findViewById(R.id.exerciseWeight);
+
+                    workload.setSets(parseIntSafe(setsInput.getText()));
+                    workload.setReps(parseIntSafe(repsInput.getText()));
+                    workload.setWeight(parseFloatSafe(weightInput.getText()));
+                } else {
+                    TextInputEditText setsInput = exerciseView.findViewById(R.id.cardioSets);
+                    TextInputEditText timeInput = exerciseView.findViewById(R.id.cardioTime);
+
+                    workload.setSets(parseIntSafe(setsInput.getText()));
+                    workload.setDuration(parseIntSafe(timeInput.getText()));
+                }
+
+                workloads.add(workload);
+            }
+
+            viewModel.addWorkout(newWorkout, workloads);
+            Toast.makeText(requireContext(), R.string.workout_added, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(requireContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
 

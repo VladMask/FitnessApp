@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        app:layout_constraintEnd_toStartOf="@+id/removeExerciseButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Push Ups" />
@@ -27,21 +27,9 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintEnd_toStartOf="@+id/removeExerciseButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseName"
         tools:text="Sets: 3, Reps: 10, Weight: 15.0 kg" />
-
-    <ImageButton
-        android:id="@+id/removeExerciseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="remove_exercise"
-        android:src="@android:drawable/ic_menu_delete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorError"/> 
 
 </androidx.constraintlayout.widget.ConstraintLayout> 

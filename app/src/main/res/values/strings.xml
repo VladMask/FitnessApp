@@ -52,9 +52,10 @@
     <string name="add_new_workout">Add new workout</string>
     <string name="workout_added">Workout added</string>
     <string name="distance_km">Distance (km)</string>
-    <string name="duration_minutes">duration (min)</string>
-    <string name="intensity">intensity</string>
-    <string name="hold_time_seconds">hold time (sec)</string>
-    <string name="notes">notes</string>
-    <string name="select_category_first">select category first</string>
+    <string name="duration_minutes">Duration (min)</string>
+    <string name="select_category_first">Select category first</string>
+    <string name="workout_date">Workout date</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="delete_workout">Delete workout</string>
 </resources>
