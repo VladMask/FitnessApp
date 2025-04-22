@@ -8,7 +8,7 @@
     <string name="exercise_added">Упражнение добавлено</string>
     <string name="exercise_deleted">Упражнение удалено</string>
     <string name="fill_all_fields">Пожалуйста, заполните все поля</string>
-    <string name="category_strength">Силовые</string>
+    <string name="category_strength">Сила</string>
     <string name="category_cardio">Кардио</string>
     <string name="category_flexibility">Гибкость</string>
     <string name="category_balance">Баланс</string>
@@ -58,4 +58,7 @@
     <string name="delete">Удалить</string>
     <string name="are_you_sure">Вы уверены?</string>
     <string name="delete_workout">Удалить тренировку</string>
+    <string name="choose_workout_date">Choose workout date</string>
+    <string name="duration_sec">duration (sec)</string>
+    <string name="no_info_about_workload">No info about workload</string>
 </resources> 

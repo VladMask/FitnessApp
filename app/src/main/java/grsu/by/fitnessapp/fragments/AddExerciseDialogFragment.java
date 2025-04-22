@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.entity.Exercise;
+import grsu.by.fitnessapp.util.StringUtils;
 import grsu.by.fitnessapp.viewmodels.ExercisesViewModel;
 
 public class AddExerciseDialogFragment extends DialogFragment {
@@ -44,7 +45,7 @@ public class AddExerciseDialogFragment extends DialogFragment {
                 .setTitle(R.string.add_new_exercise)
                 .setView(dialogView)
                 .setPositiveButton(R.string.add, (dialog, which) -> {
-                    String name = nameInput.getText().toString().trim();
+                    String name = StringUtils.formatName(nameInput.getText().toString().trim());
                     String category = categoryDropdown.getText().toString().trim();
 
                     if (!name.isEmpty() && !category.isEmpty()) {

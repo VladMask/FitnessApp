@@ -58,4 +58,7 @@
     <string name="delete">Delete</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="delete_workout">Delete workout</string>
+    <string name="choose_workout_date">Choose workout date</string>
+    <string name="duration_sec">duration (sec)</string>
+    <string name="no_info_about_workload">No info about workload</string>
 </resources>

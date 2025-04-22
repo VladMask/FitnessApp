@@ -33,25 +33,16 @@ import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.entity.Exercise;
 import grsu.by.fitnessapp.database.entity.ExerciseWorkload;
 import grsu.by.fitnessapp.database.entity.Workout;
+import grsu.by.fitnessapp.util.StringUtils;
 import grsu.by.fitnessapp.viewmodels.WorkoutsViewModel;
 
 public class AddWorkoutDialogFragment extends DialogFragment {
-
-    private static final String ARG_WORKOUT = "arg_workout";
     private WorkoutsViewModel viewModel;
     private AutoCompleteTextView categoryDropdown;
     private LinearLayout exercisesContainer;
     private LayoutInflater inflater;
     private LiveData<List<Exercise>> filteredExercises;
     private Date selectedDate;
-
-    public static AddWorkoutDialogFragment newInstance(@Nullable Workout workout) {
-        AddWorkoutDialogFragment fragment = new AddWorkoutDialogFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_WORKOUT, workout);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @NonNull
     @Override
@@ -78,6 +69,7 @@ public class AddWorkoutDialogFragment extends DialogFragment {
         categoryDropdown.setOnItemClickListener((parent, v, position, id) -> {
             String category = (String) parent.getItemAtPosition(position);
             this.filteredExercises = viewModel.getExercisesByCategory(category);
+            exercisesContainer.removeAllViews();
         });
 
         MaterialButton addExerciseButton = view.findViewById(R.id.btnAddExercise);
@@ -86,7 +78,7 @@ public class AddWorkoutDialogFragment extends DialogFragment {
         TextInputEditText dateInput = view.findViewById(R.id.workoutDateInput);
 
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Выберите дату тренировки")
+                .setTitleText(R.string.choose_workout_date)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build();
 
@@ -140,6 +132,11 @@ public class AddWorkoutDialogFragment extends DialogFragment {
         );
         exerciseDropdown.setAdapter(exerciseAdapter);
 
+        exerciseDropdown.setOnItemClickListener((parent, view, position, id) -> {
+            Exercise selectedExercise = (Exercise) parent.getItemAtPosition(position);
+            exerciseDropdown.setTag(selectedExercise);
+        });
+
         if (filteredExercises != null) {
             filteredExercises.observe(this, exercises -> {
                 exerciseAdapter.clear();
@@ -169,7 +166,7 @@ public class AddWorkoutDialogFragment extends DialogFragment {
     private void saveWorkout(String name, String category) {
         if (!name.isEmpty() && !category.isEmpty()) {
             Workout newWorkout = new Workout();
-            newWorkout.setName(name);
+            newWorkout.setName(StringUtils.formatName(name));
             newWorkout.setCategory(category);
             newWorkout.setStartDate(selectedDate);
             List<ExerciseWorkload> workloads = new ArrayList<>();
@@ -178,15 +175,10 @@ public class AddWorkoutDialogFragment extends DialogFragment {
                 View exerciseView = exercisesContainer.getChildAt(i);
 
                 AutoCompleteTextView exerciseSelect = exerciseView.findViewById(R.id.exerciseSelect);
-                String exerciseName = exerciseSelect.getText().toString().trim();
-
-                if (exerciseName.isEmpty()) continue;
-
-                Exercise exercise = viewModel.getExerciseByNameSync(exerciseName);
-                if (exercise == null) continue;
+                Exercise selectedExercise = (Exercise) exerciseSelect.getTag();
 
                 ExerciseWorkload workload = new ExerciseWorkload();
-                workload.setExerciseId(exercise.getId());
+                workload.setExerciseId(selectedExercise.getId());
 
                 if (category.equals(getString(R.string.category_strength))) {
                     TextInputEditText setsInput = exerciseView.findViewById(R.id.exerciseSets);

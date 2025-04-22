@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/workoutDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    <TextView
+        android:id="@+id/workoutDetailsName"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Workout Name"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/workoutDetailsDate"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Date"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/workoutDetailsCategory"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Category"
+        android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/workoutDetailsName"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/exercises"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/workoutExercisesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutDetailsLayout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

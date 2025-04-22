@@ -2,6 +2,7 @@ package grsu.by.fitnessapp.database.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -17,7 +18,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder
-@Entity(tableName = "exercises")
+@Entity(
+        tableName = "exercises",
+        indices = {@Index(value = {"name", "category"}, unique = true)}
+)
 public class Exercise implements Serializable {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)

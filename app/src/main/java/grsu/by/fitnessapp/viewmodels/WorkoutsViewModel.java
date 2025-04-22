@@ -95,43 +95,25 @@ public class WorkoutsViewModel extends AndroidViewModel {
         return workoutDao.getAllWorkouts();
     }
 
-    public LiveData<Workout> getWorkoutById(long id) {
-        return workoutDao.getWorkoutById(id);
-    }
-
-    public LiveData<Workout> getFullWorkoutById(long id) {
-        Workout workout = workoutDao.getWorkoutById(id).getValue();
-        List<Exercise> exercises = exerciseDao.getExercisesByWorkoutId(id).getValue();
-        List<ExerciseWorkload> exerciseWorkloads = exerciseWorkloadDao.getWorkloadsByWorkoutId(id).getValue();
+    public List<WorkoutExercise> getWorkoutExercisesWorkoutById(long id) {
+        List<Exercise> exercises = exerciseDao.getExercisesByWorkoutId(id);
+        List<ExerciseWorkload> exerciseWorkloads = exerciseWorkloadDao.getWorkloadsByWorkoutId(id);
 
         List<WorkoutExercise> workoutExercises = new ArrayList<>();
 
-        for (Exercise ex: exercises) {
+        for (Exercise ex : exercises) {
             ExerciseWorkload exerciseWorkload = exerciseWorkloads
                     .stream()
-                    .filter( workload -> Objects.equals(workload.getExerciseId(), ex.getId()))
+                    .filter(workload -> Objects.equals(workload.getExerciseId(), ex.getId()))
                     .findFirst().get();
             workoutExercises.add(new WorkoutExercise(ex, exerciseWorkload));
         }
 
-        workout.setWorkoutExercises(workoutExercises);
-        return null;
+        return workoutExercises;
     }
 
     public LiveData<List<Exercise>> getExercisesByCategory(String category) {
         return exerciseDao.getExercisesByCategory(category);
     }
 
-    public LiveData<List<ExerciseWorkload>> getWorkoutLoads(long workoutId) {
-        return exerciseWorkloadDao.getWorkloadsByWorkoutId(workoutId);
-    }
-
-    public Exercise getExerciseByNameSync(String name) {
-        try {
-            return exerciseDao.getExerciseByName(name);
-        } catch (Exception e) {
-            Log.e(TAG, "Error fetching exercise by name", e);
-            return null;
-        }
-    }
 }

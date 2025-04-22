@@ -33,18 +33,18 @@ public interface ExerciseDao {
     LiveData<Exercise> getExerciseById(long exerciseId);
 
     @Query(
-            " select * from exercises ex " +
+            " select ex.* from exercises ex " +
             " left join exercise_workloads ew" +
             " on ex.id = ew.exercise_id" +
             " where ew.workout_id = :workoutId" +
             " order by name asc"
     )
-    LiveData<List<Exercise>> getExercisesByWorkoutId(long workoutId);
+    List<Exercise> getExercisesByWorkoutId(long workoutId);
 
     @Query(" select * from exercises where category = :selectedCategory order by name asc")
     LiveData<List<Exercise>> getExercisesByCategory(String selectedCategory);
 
-    @Query("select * from exercises where name = :name limit 1")
+    @Query("select * from exercises where trim(lower(name)) = trim(lower(:name)) limit 1")
     Exercise getExerciseByName(String name);
 
 }

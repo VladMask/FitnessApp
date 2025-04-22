@@ -24,7 +24,7 @@ public interface ExerciseWorkloadDao {
     void delete(ExerciseWorkload exerciseWorkload);
 
     @Query("SELECT * FROM exercise_workloads WHERE workout_id = :workoutId")
-    LiveData<List<ExerciseWorkload>> getWorkloadsByWorkoutId(long workoutId);
+    List<ExerciseWorkload> getWorkloadsByWorkoutId(long workoutId);
 
     @Query("SELECT * FROM exercise_workloads WHERE exercise_id = :exerciseId")
     LiveData<List<ExerciseWorkload>> getWorkloadsByExerciseId(long exerciseId);

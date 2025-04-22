@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import grsu.by.fitnessapp.R;
@@ -71,8 +72,15 @@ public class WorkoutsFragment extends Fragment implements WorkoutAdapter.OnWorko
 
     @Override
     public void onWorkoutClick(Workout workout) {
-        AddWorkoutDialogFragment dialog = AddWorkoutDialogFragment.newInstance(workout);
-        dialog.show(getParentFragmentManager(), "AddWorkoutDialog");
+        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottomNav);
+        bottomNav.setVisibility(View.GONE);
+
+        WorkoutDetailsFragment detailsFragment = new WorkoutDetailsFragment(workout);
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, detailsFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 

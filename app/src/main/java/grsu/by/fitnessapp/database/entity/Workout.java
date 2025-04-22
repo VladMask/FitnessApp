@@ -6,8 +6,10 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,13 +36,13 @@ public class Workout implements Serializable {
     @ColumnInfo(name = "start_date")
     private Date startDate;
 
-    @ColumnInfo(name = "end_date")
-    private Date endDate;
-
-    @ColumnInfo(name = "duration")
-    private Integer duration;
-
     @Ignore
     private List<WorkoutExercise> workoutExercises;
+
+    public String getStringStartDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        return sdf.format(this.startDate);
+    }
+
 }
 
