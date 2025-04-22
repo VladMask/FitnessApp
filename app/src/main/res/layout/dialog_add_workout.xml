@@ -86,7 +86,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:onClick="onAddExerciseButtonClick"
             android:text="@string/add_exercise"
             app:cornerRadius="8dp"/>
 

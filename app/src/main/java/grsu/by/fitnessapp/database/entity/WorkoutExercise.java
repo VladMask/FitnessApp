@@ -1,7 +1,5 @@
 package grsu.by.fitnessapp.database.entity;
 
-import androidx.room.ColumnInfo;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +23,7 @@ public class WorkoutExercise {
         this.name = exercise.getName();
         this.category = exercise.getCategory();
         this.sets = workload.getSets();
-        this.reps = workload.getReps();;
+        this.reps = workload.getReps();
         this.weight = workload.getWeight();
         this.duration = workload.getDuration();
     }

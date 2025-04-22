@@ -6,17 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.entity.Exercise;
@@ -27,7 +30,10 @@ public class AddWorkoutDialogFragment extends DialogFragment {
 
     private static final String ARG_WORKOUT = "arg_workout";
     private WorkoutsViewModel viewModel;
-    private Workout workoutToEdit;
+    private AutoCompleteTextView categoryDropdown;
+    private LinearLayout exercisesContainer;
+    private LayoutInflater inflater;
+    private LiveData<List<Exercise>> filteredExercises;
 
     public static AddWorkoutDialogFragment newInstance(@Nullable Workout workout) {
         AddWorkoutDialogFragment fragment = new AddWorkoutDialogFragment();
@@ -42,17 +48,16 @@ public class AddWorkoutDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(WorkoutsViewModel.class);
 
-        if (getArguments() != null) {
-            workoutToEdit = (Workout) getArguments().getSerializable(ARG_WORKOUT);
-        }
+        inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_add_workout, null);
 
-        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_workout, null);
+        categoryDropdown = view.findViewById(R.id.workoutCategoryInput);
+        exercisesContainer = view.findViewById(R.id.exercisesContainer);
 
-        TextInputEditText nameInput = dialogView.findViewById(R.id.workoutNameInput);
-        AutoCompleteTextView categoryDropdown = dialogView.findViewById(R.id.workoutCategoryInput);
-//        AutoCompleteTextView exerciseDropdown = dialogView.findViewById(R.id.exerciseSelect);
+        TextInputEditText nameInput = view.findViewById(R.id.workoutNameInput);
+        AutoCompleteTextView categoryDropdown = view.findViewById(R.id.workoutCategoryInput);
 
-        // Category Dropdown
+
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_dropdown_item_1line,
@@ -60,47 +65,25 @@ public class AddWorkoutDialogFragment extends DialogFragment {
         );
         categoryDropdown.setAdapter(categoryAdapter);
 
-        // Exercise Dropdown
-        ArrayAdapter<Exercise> exerciseAdapter = new ArrayAdapter<>(
-                requireContext(),
-                android.R.layout.simple_dropdown_item_1line
-        );
-//        exerciseDropdown.setAdapter(exerciseAdapter);
-//
-//        categoryDropdown.setOnItemClickListener((parent, view, position, id) -> {
-//            String category = (String) parent.getItemAtPosition(position);
-//            viewModel.getExercisesByCategory(category).observe(this, exercises -> {
-//                exerciseAdapter.clear();
-//                exerciseAdapter.addAll(exercises);
-//                exerciseAdapter.notifyDataSetChanged();
-//                exerciseDropdown.setText("");
-//                exerciseDropdown.showDropDown();
-//                setWorkloadVisible(dialogView, category);
-//            });
-//        });
+        categoryDropdown.setOnItemClickListener((parent, v, position, id) -> {
+            String category = (String) parent.getItemAtPosition(position);
+            this.filteredExercises = viewModel.getExercisesByCategory(category);
+        });
 
-        if (workoutToEdit != null) {
-            nameInput.setText(workoutToEdit.getName());
-            categoryDropdown.setText(workoutToEdit.getCategory());
-        }
+        MaterialButton addExerciseButton = view.findViewById(R.id.btnAddExercise);
+        addExerciseButton.setOnClickListener(this::addExerciseClickListener);
 
         return new MaterialAlertDialogBuilder(requireContext())
-//                .setTitle(workoutToEdit != null ? R.string.edit_workout : R.string.add_workout)
-                .setView(dialogView)
+                .setTitle(R.string.add_new_workout)
+                .setView(view)
                 .setPositiveButton(R.string.save, (dialog, which) -> {
                     String name = nameInput.getText().toString().trim();
                     String category = categoryDropdown.getText().toString().trim();
 
                     if (!name.isEmpty() && !category.isEmpty()) {
-                        Workout workout = workoutToEdit != null ? workoutToEdit : new Workout();
-                        workout.setName(name);
-                        workout.setCategory(category);
-
-                        if (workoutToEdit != null) {
-                            viewModel.updateWorkout(workout, new ArrayList<>());
-                        } else {
-                            viewModel.addWorkout(workout, new ArrayList<>());
-                        }
+                        Workout newWorkout = new Workout();
+                        newWorkout.setName(name);
+                        newWorkout.setCategory(category);
 
                         Toast.makeText(requireContext(), R.string.workout_added, Toast.LENGTH_SHORT).show();
                     } else {
@@ -111,17 +94,37 @@ public class AddWorkoutDialogFragment extends DialogFragment {
                 .create();
     }
 
-    private void setWorkloadVisible(View dialogView, String selectedCategory) {
-        View strengthLayout = dialogView.findViewById(R.id.strengthExerciseLayout);
-        View cardioLayout = dialogView.findViewById(R.id.cardioExerciseLayout);
+    private void addExerciseClickListener(View v) {
+        String selectedCategory = categoryDropdown.getText().toString().trim();
 
-        strengthLayout.setVisibility(View.GONE);
-        cardioLayout.setVisibility(View.GONE);
+        if (selectedCategory.isEmpty()) {
+            Toast.makeText(requireContext(), R.string.select_category_first, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        View exerciseView;
         if (selectedCategory.equals(getString(R.string.category_strength))) {
-            strengthLayout.setVisibility(View.VISIBLE);
+            exerciseView = inflater.inflate(R.layout.strength_exercise_layout, exercisesContainer, false);
         } else {
-            cardioLayout.setVisibility(View.VISIBLE);
+            exerciseView = inflater.inflate(R.layout.cardio_exercise_layout, exercisesContainer, false);
+        }
+
+        exercisesContainer.addView(exerciseView);
+
+        AutoCompleteTextView exerciseDropdown = exerciseView.findViewById(R.id.exerciseSelect);
+
+        ArrayAdapter<Exercise> exerciseAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line
+        );
+        exerciseDropdown.setAdapter(exerciseAdapter);
+
+        if (filteredExercises != null) {
+            filteredExercises.observe(this, exercises -> {
+                exerciseAdapter.clear();
+                exerciseAdapter.addAll(exercises);
+                exerciseAdapter.notifyDataSetChanged();
+            });
         }
     }
 }

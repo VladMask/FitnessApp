@@ -51,15 +51,17 @@ public class WorkoutsFragment extends Fragment implements WorkoutAdapter.OnWorko
     private void setupAddButton(View view) {
         FloatingActionButton addButton = view.findViewById(R.id.addButton);
         addButton.setOnClickListener(v ->
-                AddWorkoutDialogFragment.newInstance(null)
-                        .show(getParentFragmentManager(), "AddWorkoutDialog")
+                {
+                    AddWorkoutDialogFragment dialogFragment = new AddWorkoutDialogFragment();
+                    dialogFragment.show(getFragmentManager(), "addWorkoutDialog");
+                }
         );
     }
 
     @Override
     public void onWorkoutClick(Workout workout) {
-        AddWorkoutDialogFragment.newInstance(workout)
-                .show(getParentFragmentManager(), "EditWorkoutDialog");
+        AddWorkoutDialogFragment dialog = AddWorkoutDialogFragment.newInstance(workout);
+        dialog.show(getParentFragmentManager(), "AddWorkoutDialog");
     }
 
 

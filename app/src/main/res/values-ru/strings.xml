@@ -56,4 +56,5 @@
     <string name="intensity">intensity</string>
     <string name="hold_time_seconds">hold time (sec)</string>
     <string name="notes">notes</string>
+    <string name="select_category_first">select category first</string>
 </resources> 
