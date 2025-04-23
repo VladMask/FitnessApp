@@ -1,5 +1,6 @@
 package grsu.by.fitnessapp.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class WorkoutsFragment extends Fragment implements WorkoutAdapter.OnWorko
         setupAddButton(view);
 
         adapter.setOnDeleteClickListener(workout -> {
-            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            new AlertDialog.Builder(requireContext())
                     .setTitle(R.string.delete_workout)
                     .setMessage(R.string.are_you_sure)
                     .setPositiveButton(R.string.delete, (dialog, which) -> {

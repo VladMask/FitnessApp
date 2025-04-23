@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,11 +49,22 @@ public class ProgressFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.conditionsRecyclerView);
 
+        UserConditionsViewModel viewModel = new ViewModelProvider(this).get(UserConditionsViewModel.class);
+
         adapter = new UserConditionsAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setDeleteClickListener(condition -> {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.delete_record)
+                    .setMessage(R.string.are_you_sure)
+                    .setPositiveButton(R.string.delete, (dialog, which) -> {
+                        viewModel.delete(condition);
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+        });
 
-        UserConditionsViewModel viewModel = new ViewModelProvider(this).get(UserConditionsViewModel.class);
 
         viewModel.getAllUserConditions().observe(getViewLifecycleOwner(), conditions -> {
             if (conditions != null && !conditions.isEmpty()) {

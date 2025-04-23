@@ -2,6 +2,7 @@ package grsu.by.fitnessapp.database.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -14,6 +15,9 @@ import grsu.by.fitnessapp.database.entity.UserConditions;
 public interface UserConditionsDao {
     @Insert
     void insert(UserConditions userConditions);
+
+    @Delete
+    void delete(UserConditions condition);
 
     @Query("SELECT * FROM UserConditions ORDER BY checkup_Date DESC LIMIT 1")
     UserConditions getLatest();

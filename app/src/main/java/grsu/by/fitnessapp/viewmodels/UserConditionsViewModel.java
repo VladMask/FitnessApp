@@ -29,5 +29,9 @@ public class UserConditionsViewModel extends AndroidViewModel {
     public void insert(UserConditions condition) {
         userConditionsDao.insert(condition);
     }
+
+    public void delete(UserConditions condition) {
+        userConditionsDao.delete(condition);
+    }
 }
 

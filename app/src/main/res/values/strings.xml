@@ -38,15 +38,15 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="your_progress">Your progress</string>
-    <string name="current_weight">Current weight:</string>
-    <string name="current_height">Current height:</string>
-    <string name="current_bmi">Current BMI:</string>
+    <string name="current_weight_with_colon">Current weight: </string>
+    <string name="current_height_with_colon">Current height: </string>
+    <string name="current_bmi_with_colon">Current BMI: </string>
     <string name="weight">Weight</string>
     <string name="bmi">BMI</string>
-    <string name="sets">Sets:</string>
-    <string name="reps">Reps:</string>
-    <string name="duration">Duration:</string>
-    <string name="distance">Distance:</string>
+    <string name="sets_with_colon">Sets: </string>
+    <string name="reps_with_colon">Reps: </string>
+    <string name="duration_with_colon">Duration: </string>
+    <string name="distance_with_colon">Distance: </string>
     <string name="start_your_journey">Start your journey</string>
     <string name="workout_deleted">Workout deleted</string>
     <string name="add_new_workout">Add new workout</string>
@@ -64,4 +64,8 @@
     <string name="add_conditions_record">Add record</string>
     <string name="record_added">Record added</string>
     <string name="weight_dynamics">Weight dynamics</string>
+    <string name="delete_record">Delete record</string>
+    <string name="date_with_colon">"Date: "</string>
+    <string name="weight_with_colon">"Weight(kg): "</string>
+    <string name="height_with_colon">"Height(sm): "</string>
 </resources>

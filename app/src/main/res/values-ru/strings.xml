@@ -38,15 +38,15 @@
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
     <string name="your_progress">Ваш прогресс</string>
-    <string name="current_weight">Текущий вес:</string>
-    <string name="current_height">Текущий рост:</string>
-    <string name="current_bmi">Текуший ИМТ:</string>
+    <string name="current_weight_with_colon">Текущий вес:</string>
+    <string name="current_height_with_colon">Текущий рост:</string>
+    <string name="current_bmi_with_colon">Текуший ИМТ:</string>
     <string name="weight">Вес</string>
     <string name="bmi">ИМТ</string>
-    <string name="sets">Подходы:</string>
-    <string name="reps">Повторения:</string>
-    <string name="duration">Продолжительность:</string>
-    <string name="distance">Дистанция:</string>
+    <string name="sets_with_colon">Подходы:</string>
+    <string name="reps_with_colon">Повторения:</string>
+    <string name="duration_with_colon">Продолжительность:</string>
+    <string name="distance_with_colon">Дистанция:</string>
     <string name="start_your_journey">Начните свой путь</string>
     <string name="workout_deleted">Тренировка удалена</string>
     <string name="add_new_workout">Добавить тренировку</string>
@@ -64,4 +64,8 @@
     <string name="add_conditions_record">Добавить запись</string>
     <string name="record_added">Запись добавлена</string>
     <string name="weight_dynamics">Динамика веса</string>
-</resources> 
+    <string name="delete_record">Удалить запись</string>
+    <string name="date_with_colon">"Дата: "</string>
+    <string name="weight_with_colon">"Вес(кг): "</string>
+    <string name="height_with_colon">"Рост(см): "</string>
+</resources>

@@ -1,8 +1,10 @@
 package grsu.by.fitnessapp.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +17,17 @@ import java.util.Locale;
 
 import grsu.by.fitnessapp.R;
 import grsu.by.fitnessapp.database.entity.UserConditions;
+import lombok.Setter;
 
 public class UserConditionsAdapter extends RecyclerView.Adapter<UserConditionsAdapter.UserConditionsViewHolder> {
 
     private List<UserConditions> userConditionsList = new ArrayList<>();
+    @Setter
+    private OnDeleteClickListener deleteClickListener;
+
+    public interface OnDeleteClickListener {
+        void onDeleteClick(UserConditions item);
+    }
 
     public void setData(List<UserConditions> data) {
         this.userConditionsList = data;
@@ -39,9 +48,17 @@ public class UserConditionsAdapter extends RecyclerView.Adapter<UserConditionsAd
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         String formattedDate = sdf.format(item.getCheckupDate());
 
-        holder.checkupDateText.setText("Дата: " + formattedDate);
-        holder.weightText.setText("Вес: " + item.getWeight() + " кг");
-        holder.heightText.setText("Рост: " + item.getHeight() + " см");
+        Context context = holder.itemView.getContext();
+
+        holder.checkupDateText.setText(String.format("%s%s", context.getString(R.string.date_with_colon), formattedDate));
+        holder.weightText.setText(String.format("%s%s", context.getString(R.string.weight_with_colon), item.getWeight()));
+        holder.heightText.setText(String.format("%s%s", context.getString(R.string.height_with_colon), item.getHeight()));
+
+        holder.deleteButton.setOnClickListener(v -> {
+            if (deleteClickListener != null) {
+                deleteClickListener.onDeleteClick(item);
+            }
+        });
     }
 
     @Override
@@ -51,12 +68,14 @@ public class UserConditionsAdapter extends RecyclerView.Adapter<UserConditionsAd
 
     static class UserConditionsViewHolder extends RecyclerView.ViewHolder {
         TextView checkupDateText, weightText, heightText;
+        ImageButton deleteButton;
 
         public UserConditionsViewHolder(@NonNull View itemView) {
             super(itemView);
             checkupDateText = itemView.findViewById(R.id.checkupDateText);
             weightText = itemView.findViewById(R.id.weightText);
             heightText = itemView.findViewById(R.id.heightText);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
 }

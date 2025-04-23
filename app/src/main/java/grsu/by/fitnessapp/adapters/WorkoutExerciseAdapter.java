@@ -59,10 +59,10 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             StringBuilder details = new StringBuilder();
 
             if (exercise.getSets() != null && exercise.getReps() != null) {
-                details.append(context.getString(R.string.sets))
+                details.append(context.getString(R.string.sets_with_colon))
                         .append(exercise.getSets())
                         .append(", ")
-                        .append(context.getString(R.string.reps))
+                        .append(context.getString(R.string.reps_with_colon))
                         .append(exercise.getReps());
             }
 
@@ -76,8 +76,7 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             if (exercise.getDuration() != null && exercise.getDuration() > 0) {
                 details.append(", ")
                         .append(context.getString(R.string.duration_sec))
-                        .append(": ").append(exercise.getDuration())
-                        .append(" сек");
+                        .append(": ").append(exercise.getDuration());
             }
 
             if (details.length() == 0) {
