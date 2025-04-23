@@ -58,7 +58,10 @@
     <string name="delete">Удалить</string>
     <string name="are_you_sure">Вы уверены?</string>
     <string name="delete_workout">Удалить тренировку</string>
-    <string name="choose_workout_date">Choose workout date</string>
-    <string name="duration_sec">duration (sec)</string>
-    <string name="no_info_about_workload">No info about workload</string>
+    <string name="choose_workout_date">Выберите дату тренировки</string>
+    <string name="duration_sec">Продолжительность (сек)</string>
+    <string name="no_info_about_workload">Нет информации о нагрузке</string>
+    <string name="add_conditions_record">Добавить запись</string>
+    <string name="record_added">Запись добавлена</string>
+    <string name="weight_dynamics">Динамика веса</string>
 </resources> 

@@ -1,5 +1,6 @@
 package grsu.by.fitnessapp.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -18,7 +19,7 @@ public interface UserConditionsDao {
     UserConditions getLatest();
 
     @Query("SELECT * FROM UserConditions ORDER BY checkup_Date")
-    List<UserConditions> getAll();
+    LiveData<List<UserConditions>> getAll();
 
     @Update
     void update(UserConditions userConditions);

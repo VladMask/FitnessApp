@@ -28,10 +28,10 @@ public class UserConditions implements Serializable {
     private Byte age;
 
     @ColumnInfo(name = "weight")
-    private Short weight;
+    private Float weight;
 
     @ColumnInfo(name = "height")
-    private Short height;
+    private Float height;
 
     @ColumnInfo(name = "gender")
     private Boolean gender;
