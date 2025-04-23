@@ -97,8 +97,7 @@ public class ProgressFragment extends Fragment {
             UserConditions condition = conditions.get(i);
             float weight = condition.getWeight();
 
-            String dateString = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(condition.getCheckupDate());
-            dates.add(dateString);
+            dates.add(condition.getFormattedCheckupDate());
             entries.add(new Entry(i, weight));
         }
 
@@ -123,7 +122,10 @@ public class ProgressFragment extends Fragment {
 
         YAxis yAxis = chart.getAxisLeft();
         yAxis.setLabelCount(6, false);
-        yAxis.setAxisMinimum(0f);
+        float minWeight = Collections.min(conditions, Comparator.comparing(UserConditions::getWeight)).getWeight();
+        yAxis.setAxisMinimum(minWeight - 5f);
+        float maxWeight = Collections.min(conditions, Comparator.comparing(UserConditions::getWeight)).getWeight();
+        yAxis.setAxisMaximum(maxWeight + 3f);
 
         chart.getAxisRight().setEnabled(false);
 

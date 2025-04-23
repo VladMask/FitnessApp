@@ -68,4 +68,6 @@
     <string name="date_with_colon">"Date: "</string>
     <string name="weight_with_colon">"Weight(kg): "</string>
     <string name="height_with_colon">"Height(sm): "</string>
+    <string name="choose_gender">Choose gender</string>
+    <string name="please_enter_correct_data">Please enter correct data</string>
 </resources>

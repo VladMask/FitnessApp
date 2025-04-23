@@ -40,7 +40,7 @@
     <string name="your_progress">Ваш прогресс</string>
     <string name="current_weight_with_colon">Текущий вес:</string>
     <string name="current_height_with_colon">Текущий рост:</string>
-    <string name="current_bmi_with_colon">Текуший ИМТ:</string>
+    <string name="current_bmi_with_colon">Текущий ИМТ:</string>
     <string name="weight">Вес</string>
     <string name="bmi">ИМТ</string>
     <string name="sets_with_colon">Подходы:</string>
@@ -68,4 +68,6 @@
     <string name="date_with_colon">"Дата: "</string>
     <string name="weight_with_colon">"Вес(кг): "</string>
     <string name="height_with_colon">"Рост(см): "</string>
+    <string name="choose_gender">Выберите гендер</string>
+    <string name="please_enter_correct_data">Пожалуйста, введите корректные данные</string>
 </resources>

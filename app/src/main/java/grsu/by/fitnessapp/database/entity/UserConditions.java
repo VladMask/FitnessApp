@@ -5,7 +5,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,10 +35,11 @@ public class UserConditions implements Serializable {
     @ColumnInfo(name = "height")
     private Float height;
 
-    @ColumnInfo(name = "gender")
-    private Boolean gender;
-
     @ColumnInfo(name = "checkup_Date")
     private Date checkupDate;
+
+    public String getFormattedCheckupDate() {
+        return new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(this.checkupDate);
+    }
 }
 
