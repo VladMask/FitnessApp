@@ -70,4 +70,5 @@
     <string name="height_with_colon">"Рост(см): "</string>
     <string name="choose_gender">Выберите гендер</string>
     <string name="please_enter_correct_data">Пожалуйста, введите корректные данные</string>
+    <string name="exercise_already_exists">Такое упражнение уже существует</string>
 </resources>

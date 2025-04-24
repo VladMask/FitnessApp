@@ -40,7 +40,7 @@ public class WorkoutDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(WorkoutsViewModel.class);
-        setupRecyclerView(view, workout);
+        setupRecyclerView(view, workout.getId());
 
         TextView name = view.findViewById(R.id.workoutDetailsName);
         name.setText(workout.getName());
@@ -50,11 +50,16 @@ public class WorkoutDetailsFragment extends Fragment {
         date.setText(workout.getStringStartDate());
     }
 
-    private void setupRecyclerView(View view, Workout workout) {
+    private void setupRecyclerView(View view, Long workoutId) {
         RecyclerView recyclerView = view.findViewById(R.id.workoutExercisesRecyclerView);
-        WorkoutExerciseAdapter adapter = new WorkoutExerciseAdapter(viewModel.getWorkoutExercisesWorkoutById(workout.getId()));
+        WorkoutExerciseAdapter adapter = new WorkoutExerciseAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
+
+        viewModel.getWorkoutExercisesWorkoutById(workoutId).observe(getViewLifecycleOwner(), workoutExercises -> {
+            adapter.setItems(workoutExercises);
+            adapter.notifyDataSetChanged();
+        });
     }
 
     @Override

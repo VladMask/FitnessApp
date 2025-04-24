@@ -6,10 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -95,21 +93,8 @@ public class WorkoutsViewModel extends AndroidViewModel {
         return workoutDao.getAllWorkouts();
     }
 
-    public List<WorkoutExercise> getWorkoutExercisesWorkoutById(long id) {
-        List<Exercise> exercises = exerciseDao.getExercisesByWorkoutId(id);
-        List<ExerciseWorkload> exerciseWorkloads = exerciseWorkloadDao.getWorkloadsByWorkoutId(id);
-
-        List<WorkoutExercise> workoutExercises = new ArrayList<>();
-
-        for (Exercise ex : exercises) {
-            ExerciseWorkload exerciseWorkload = exerciseWorkloads
-                    .stream()
-                    .filter(workload -> Objects.equals(workload.getExerciseId(), ex.getId()))
-                    .findFirst().get();
-            workoutExercises.add(new WorkoutExercise(ex, exerciseWorkload));
-        }
-
-        return workoutExercises;
+    public LiveData<List<WorkoutExercise>> getWorkoutExercisesWorkoutById(long id) {
+         return exerciseWorkloadDao.getByWorkoutIdWithDetails(id);
     }
 
     public LiveData<List<Exercise>> getExercisesByCategory(String category) {

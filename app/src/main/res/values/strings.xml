@@ -70,4 +70,5 @@
     <string name="height_with_colon">"Height(sm): "</string>
     <string name="choose_gender">Choose gender</string>
     <string name="please_enter_correct_data">Please enter correct data</string>
+    <string name="exercise_already_exists">Exercise already exists</string>
 </resources>

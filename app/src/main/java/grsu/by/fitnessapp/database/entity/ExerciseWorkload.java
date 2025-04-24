@@ -62,5 +62,6 @@ public class ExerciseWorkload implements Serializable {
 
     @ColumnInfo(name = "duration")
     private Integer duration;
+
 }
 

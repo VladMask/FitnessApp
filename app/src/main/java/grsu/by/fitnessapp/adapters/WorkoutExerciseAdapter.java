@@ -12,14 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import grsu.by.fitnessapp.R;
+import grsu.by.fitnessapp.database.entity.Exercise;
+import grsu.by.fitnessapp.database.entity.ExerciseWorkload;
 import grsu.by.fitnessapp.database.entity.WorkoutExercise;
 
 public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExerciseAdapter.ExerciseViewHolder> {
 
-    private final List<WorkoutExercise> exercises;
+    private List<WorkoutExercise> exercises;
 
-    public WorkoutExerciseAdapter(List<WorkoutExercise> exercises) {
-        this.exercises = exercises;
+    public void setItems(List<WorkoutExercise> newExercises) {
+        this.exercises = newExercises;
+        notifyDataSetChanged();
+    }
+
+    public WorkoutExerciseAdapter() {
+
     }
 
     @NonNull
@@ -51,32 +58,34 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             workloadDetails = itemView.findViewById(R.id.workloadDetails);
         }
 
-        public void bind(WorkoutExercise exercise) {
+        public void bind(WorkoutExercise workoutExercise) {
             Context context = itemView.getContext();
 
+            Exercise exercise = workoutExercise.getExercise();
+            ExerciseWorkload workload = workoutExercise.getWorkload();
             exerciseName.setText(exercise.getName());
 
             StringBuilder details = new StringBuilder();
 
-            if (exercise.getSets() != null && exercise.getReps() != null) {
+            if (workload.getSets() != null && workload.getReps() != null) {
                 details.append(context.getString(R.string.sets_with_colon))
-                        .append(exercise.getSets())
+                        .append(workload.getSets())
                         .append(", ")
                         .append(context.getString(R.string.reps_with_colon))
-                        .append(exercise.getReps());
+                        .append(workload.getReps());
             }
 
-            if (exercise.getWeight() > 0) {
+            if (workload.getWeight() > 0) {
                 details.append(", ")
                         .append(context.getString(R.string.weight_kg))
                         .append(": ")
-                        .append(exercise.getWeight());
+                        .append(workload.getWeight());
             }
 
-            if (exercise.getDuration() != null && exercise.getDuration() > 0) {
+            if (workload.getDuration() != null && workload.getDuration() > 0) {
                 details.append(", ")
                         .append(context.getString(R.string.duration_sec))
-                        .append(": ").append(exercise.getDuration());
+                        .append(": ").append(workload.getDuration());
             }
 
             if (details.length() == 0) {
@@ -84,7 +93,6 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             }
 
             workloadDetails.setText(details.toString());
-            System.out.print("aaa");
         }
     }
 }

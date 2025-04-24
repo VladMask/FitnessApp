@@ -24,7 +24,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.button.MaterialButton;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -91,7 +90,7 @@ public class ProgressFragment extends Fragment {
         List<Entry> entries = new ArrayList<>();
         List<String> dates = new ArrayList<>();
 
-        Collections.sort(conditions, Comparator.comparing(UserConditions::getCheckupDate));
+        conditions.sort(Comparator.comparing(UserConditions::getCheckupDate));
 
         for (int i = 0; i < conditions.size(); i++) {
             UserConditions condition = conditions.get(i);
@@ -124,7 +123,7 @@ public class ProgressFragment extends Fragment {
         yAxis.setLabelCount(6, false);
         float minWeight = Collections.min(conditions, Comparator.comparing(UserConditions::getWeight)).getWeight();
         yAxis.setAxisMinimum(minWeight - 5f);
-        float maxWeight = Collections.min(conditions, Comparator.comparing(UserConditions::getWeight)).getWeight();
+        float maxWeight = Collections.max(conditions, Comparator.comparing(UserConditions::getWeight)).getWeight();
         yAxis.setAxisMaximum(maxWeight + 3f);
 
         chart.getAxisRight().setEnabled(false);

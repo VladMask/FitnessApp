@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -14,7 +13,7 @@ import grsu.by.fitnessapp.database.entity.Exercise;
 
 @Dao
 public interface ExerciseDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void insert(Exercise exercise);
 
     @Update
@@ -29,23 +28,7 @@ public interface ExerciseDao {
     @Query("select * from exercises order by name asc")
     LiveData<List<Exercise>> getAll();
 
-    @Query("select * from exercises where id = :exerciseId")
-    LiveData<Exercise> getExerciseById(long exerciseId);
-
-    @Query(
-            " select ex.* from exercises ex " +
-            " left join exercise_workloads ew" +
-            " on ex.id = ew.exercise_id" +
-            " where ew.workout_id = :workoutId" +
-            " order by name asc"
-    )
-    List<Exercise> getExercisesByWorkoutId(long workoutId);
-
     @Query(" select * from exercises where category = :selectedCategory order by name asc")
     LiveData<List<Exercise>> getExercisesByCategory(String selectedCategory);
-
-    @Query("select * from exercises where trim(lower(name)) = trim(lower(:name)) limit 1")
-    Exercise getExerciseByName(String name);
-
 }
 

@@ -1,6 +1,7 @@
 package grsu.by.fitnessapp.viewmodels;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteConstraintException;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -42,14 +43,14 @@ public class ExercisesViewModel extends AndroidViewModel {
         );
     }
 
-    public void addExercise(Exercise exercise) {
-        executor.execute(() -> {
+    public boolean addExercise(Exercise exercise) {
             try {
                 exerciseDao.insert(exercise);
-            } catch (Exception e) {
+                return true;
+            } catch (SQLiteConstraintException e) {
                 Log.e(TAG, "Error adding exercise", e);
+                return false;
             }
-        });
     }
 
     public void deleteExercise(Exercise exercise) {

@@ -29,7 +29,7 @@ public class AddExerciseDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(ExercisesViewModel.class);
-        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_exercise, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_exercise, null);
 
         TextInputEditText nameInput = dialogView.findViewById(R.id.exerciseNameInput);
         AutoCompleteTextView categoryDropdown = dialogView.findViewById(R.id.categoryDropdown);
@@ -52,8 +52,19 @@ public class AddExerciseDialogFragment extends DialogFragment {
                         Exercise exercise = new Exercise();
                         exercise.setName(name);
                         exercise.setCategory(category);
-                        viewModel.addExercise(exercise);
-                        Toast.makeText(getContext(), R.string.exercise_added, Toast.LENGTH_SHORT).show();
+
+                        new Thread(() -> {
+                            boolean success = viewModel.addExercise(exercise);
+
+                            requireActivity().runOnUiThread(() -> {
+                                if (success) {
+                                    Toast.makeText(getContext(), R.string.exercise_added, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), R.string.exercise_already_exists, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }).start();
+
                     } else {
                         Toast.makeText(getContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
                     }
