@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,12 @@ public class WorkoutDetailsFragment extends Fragment {
         category.setText(workout.getCategory());
         TextView date = view.findViewById(R.id.workoutDetailsDate);
         date.setText(workout.getStringStartDate());
+
+        ImageButton editButton = view.findViewById(R.id.editWorkoutButton);
+        editButton.setOnClickListener(v -> {
+            EditWorkoutDialogFragment dialogFragment = new EditWorkoutDialogFragment(workout);
+            dialogFragment.show(getParentFragmentManager(), "EditWorkoutDialog");
+        });
     }
 
     private void setupRecyclerView(View view, Long workoutId) {
@@ -56,9 +63,10 @@ public class WorkoutDetailsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
 
-        viewModel.getWorkoutExercisesWorkoutById(workoutId).observe(getViewLifecycleOwner(), workoutExercises -> {
+        viewModel.getWorkoutExercisesByWorkoutId(workoutId).observe(getViewLifecycleOwner(), workoutExercises -> {
             adapter.setItems(workoutExercises);
             adapter.notifyDataSetChanged();
+            workout.setWorkoutExercises(workoutExercises);
         });
     }
 

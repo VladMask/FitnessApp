@@ -58,7 +58,7 @@ public class ExerciseWorkload implements Serializable {
     private Integer reps;
 
     @ColumnInfo(name = "weight")
-    private float weight;
+    private Float weight;
 
     @ColumnInfo(name = "duration")
     private Integer duration;

@@ -29,6 +29,6 @@ public interface ExerciseWorkloadDao {
 
     @Transaction
     @Query("SELECT * FROM exercise_workloads WHERE workout_id = :id")
-    LiveData<List<WorkoutExercise>> getByWorkoutIdWithDetails(long id);
+    LiveData<List<WorkoutExercise>> getWorkoutExercisesByWorkoutId(long id);
 }
 

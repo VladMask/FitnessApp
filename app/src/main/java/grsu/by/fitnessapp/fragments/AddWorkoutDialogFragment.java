@@ -43,7 +43,7 @@ public class AddWorkoutDialogFragment extends DialogFragment {
     private LinearLayout exercisesContainer;
     private LayoutInflater inflater;
     private LiveData<List<Exercise>> filteredExercises;
-    private Date selectedDate;
+    private Date selectedDate = new Date();
 
     @NonNull
     @Override
@@ -57,7 +57,6 @@ public class AddWorkoutDialogFragment extends DialogFragment {
         exercisesContainer = view.findViewById(R.id.exercisesContainer);
 
         TextInputEditText nameInput = view.findViewById(R.id.workoutNameInput);
-        AutoCompleteTextView categoryDropdown = view.findViewById(R.id.workoutCategoryInput);
 
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
@@ -102,9 +101,16 @@ public class AddWorkoutDialogFragment extends DialogFragment {
                     String name = Objects.requireNonNull(nameInput.getText()).toString().trim();
                     String category = categoryDropdown.getText().toString().trim();
 
-                    saveWorkout(name, category);
+                    if(saveWorkout(name, category)) {
+                        dialog.dismiss();
+                        Toast.makeText(requireContext(), R.string.workout_added, Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(requireContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
+                    }
                 })
-                .setNegativeButton(R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
                 .create();
     }
 
@@ -170,12 +176,13 @@ public class AddWorkoutDialogFragment extends DialogFragment {
     }
 
 
-    private void saveWorkout(String name, String category) {
+    private boolean saveWorkout(String name, String category) {
         if (!name.isEmpty() && !category.isEmpty()) {
             Workout newWorkout = new Workout();
             newWorkout.setName(StringUtils.formatName(name));
             newWorkout.setCategory(category);
             newWorkout.setStartDate(selectedDate);
+
             List<ExerciseWorkload> workloads = new ArrayList<>();
 
             for (int i = 0; i < exercisesContainer.getChildCount(); i++) {
@@ -207,9 +214,9 @@ public class AddWorkoutDialogFragment extends DialogFragment {
             }
 
             viewModel.addWorkout(newWorkout, workloads);
-            Toast.makeText(requireContext(), R.string.workout_added, Toast.LENGTH_SHORT).show();
+            return true;
         } else {
-            Toast.makeText(requireContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
 

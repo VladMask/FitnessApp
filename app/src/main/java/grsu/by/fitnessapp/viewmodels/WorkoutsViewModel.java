@@ -93,8 +93,8 @@ public class WorkoutsViewModel extends AndroidViewModel {
         return workoutDao.getAllWorkouts();
     }
 
-    public LiveData<List<WorkoutExercise>> getWorkoutExercisesWorkoutById(long id) {
-         return exerciseWorkloadDao.getByWorkoutIdWithDetails(id);
+    public LiveData<List<WorkoutExercise>> getWorkoutExercisesByWorkoutId(long id) {
+         return exerciseWorkloadDao.getWorkoutExercisesByWorkoutId(id);
     }
 
     public LiveData<List<Exercise>> getExercisesByCategory(String category) {
