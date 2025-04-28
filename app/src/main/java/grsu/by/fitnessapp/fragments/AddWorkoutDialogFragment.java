@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -118,8 +119,14 @@ public class AddWorkoutDialogFragment extends DialogFragment {
         View exerciseView;
         if (selectedCategory.equals(getString(R.string.category_strength))) {
             exerciseView = inflater.inflate(R.layout.strength_exercise_layout, exercisesContainer, false);
+
+            ImageButton btnRemoveExercise = exerciseView.findViewById(R.id.btnRemoveExercise);
+            btnRemoveExercise.setOnClickListener(v1 -> exercisesContainer.removeView(exerciseView));
         } else {
             exerciseView = inflater.inflate(R.layout.cardio_exercise_layout, exercisesContainer, false);
+
+            ImageButton btnRemoveExercise = exerciseView.findViewById(R.id.btnRemoveExercise);
+            btnRemoveExercise.setOnClickListener(v1 -> exercisesContainer.removeView(exerciseView));
         }
 
         exercisesContainer.addView(exerciseView);

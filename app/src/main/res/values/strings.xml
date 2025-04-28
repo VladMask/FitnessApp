@@ -71,4 +71,5 @@
     <string name="choose_gender">Choose gender</string>
     <string name="please_enter_correct_data">Please enter correct data</string>
     <string name="exercise_already_exists">Exercise already exists</string>
+    <string name="workout_updated">Workout updated</string>
 </resources>
